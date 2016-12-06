@@ -4,6 +4,7 @@ namespace AdventOfCode\Solution\Day6;
 class Part1
 {
     protected $input;
+    protected $reverse = true;
 
     public function __construct($input)
     {
@@ -23,7 +24,10 @@ class Part1
                     $charlist[$row[$i]] = 1;
                 }
             }
-            arsort($charlist);
+            asort($charlist);
+            if($this->reverse){
+                $charlist=array_reverse($charlist);
+            }
             $msg .= array_keys($charlist)[0];
         }
         return $msg;
