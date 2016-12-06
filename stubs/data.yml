@@ -1,0 +1,7 @@
+testdata:
+  part1:
+    testdata: testanswer
+    "complicated test data\n!": 33
+  part2:
+    testdata: testanswer
+data: inputdata
