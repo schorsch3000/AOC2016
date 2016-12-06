@@ -31,20 +31,33 @@ class Room
         unset($chars[45]); // no need to couht the dash
         $prefixLength = ceil(log10(1 + max(...$chars)));
 
-        $arrayToSort=[];
-        foreach($chars as $char => $count){
-            $key=str_pad($count,$prefixLength,0,STR_PAD_LEFT)."_".(255-$char); // we need the count sorted ascending but the char descending...
-            $arrayToSort[$key]=$char;
+        $arrayToSort = [];
+        foreach ($chars as $char => $count) {
+            $key = str_pad($count, $prefixLength, 0,
+                    STR_PAD_LEFT) . "_" . (255 - $char); // we need the count sorted ascending but the char descending...
+            $arrayToSort[$key] = $char;
         }
 
         krsort($arrayToSort);
-        $chksum='';
-        for($i=0;$i<5;$i++){
-            $chksum.=chr(array_shift($arrayToSort));
+        $chksum = '';
+        for ($i = 0; $i < 5; $i++) {
+            $chksum .= chr(array_shift($arrayToSort));
         }
         return ($chksum === $match[2]);
+    }
 
+    public function getName()
+    {
+        preg_match("/([a-z-]+)-\\d/", $this->id, $match);
+        $plaintext = $match[1];
+        $sectorId = $this->getSectorId() % 26;
+        while ($sectorId--) {
+            $plaintext = strtr($plaintext, 'abcdefghijklmnopqrstuvwxyz- ', 'bcdefghijklmnopqrstuvwxyza  ');
+        }
+        return $plaintext;
     }
 
 
 }
+
+
