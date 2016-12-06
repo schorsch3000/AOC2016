@@ -13,14 +13,10 @@ class Part1
     public function solve()
     {
         $validTriangles = 0;
-
+        $triangle = new Triangle();
         foreach ($this->input as $triangleValues) {
-            $triangleValues = preg_split("/ +/", trim($triangleValues));
-            if (
-                $triangleValues[0] + $triangleValues[1] > $triangleValues[2] &&
-                $triangleValues[1] + $triangleValues[2] > $triangleValues[0] &&
-                $triangleValues[0] + $triangleValues[2] > $triangleValues[1]
-            ) {
+            $triangle->setLengths(preg_split("/ +/", trim($triangleValues)));
+            if ($triangle->isValid()) {
                 $validTriangles++;
             }
         }
