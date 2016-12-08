@@ -18,10 +18,10 @@ class Display
         }
     }
 
-    public function runInstruction($instructions,$delay=false)
+    public function runInstruction($instructions, $delay = false)
     {
         foreach ((array)$instructions as $instruction) {
-            if($delay) {
+            if ($delay) {
                 usleep($delay);
             }
             echo "\n\n", str_repeat("=", strlen($instruction)), "\n";
@@ -87,6 +87,26 @@ class Display
             }
             echo "\n";
         }
+    }
+
+    public function writeImage($file)
+    {
+        $fp = fopen($file, 'w');
+        $x = count($this->pixel);
+        $y = count($this->pixel[0]);
+        fwrite($fp, "P2\n$y $x 4\n");
+        foreach ($this->pixel as $col) {
+            foreach ($col as $pixel) {
+                if ($pixel) {
+                    fwrite($fp, 4);
+                } else {
+                    fwrite($fp, 1);
+                }
+                fwrite($fp, " ");
+            }
+            fwrite($fp, "\n");
+        }
+        fclose($fp);
     }
 
     public function getPixelCount()
