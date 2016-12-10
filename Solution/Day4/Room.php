@@ -28,7 +28,7 @@ class Room
     {
         preg_match("/([a-z-]+)-\\d+\\[(.*)\\]/", $this->id, $match);
         $chars = count_chars($match[1], 1);
-        unset($chars[45]); // no need to couht the dash
+        unset($chars[45]); // no need to count the dash
         $prefixLength = ceil(log10(1 + max(...$chars)));
 
         $arrayToSort = [];
